@@ -7,62 +7,68 @@ Ett Chrome-tillägg som låter dig höra när du tjänar pengar på Avanza, utan
 - [ ] Automatisk övervakning av portföljvärde
 - [ ] Ljudnotifiering vid värdeökning
 - [ ] Valbar notifieringsnivå (100kr, 1000kr, 10 000kr, 100 000kr)
+- [ ] Valbar ljudeffekt (5 olika alternativ)
 - [ ] Uppdatering varje minut
 - [ ] Enkel installation via chrome://extensions/
 
 ## 📋 Projektchecklista
 
 ### 1️⃣ Projektstruktur
-- [ ] Skapa projektmapp: `avanza-notifier`
-- [ ] Skapa följande filer:
-  - [ ] manifest.json
-  - [ ] content.js
-  - [ ] sound.mp3
-  - [ ] icon.png
-  - [ ] popup.html
-  - [ ] popup.js
+- [x] 1.1 Skapa projektmapp: `avanza-notifier`
+- [ ] 1.2 Skapa följande filer:
+  - [x] 1.2.1 manifest.json
+  - [x] 1.2.2 content.js
+  - [x] 1.2.3 sound.mp3
+  - [x] 1.2.4 icon.png
+  - [x] 1.2.5 popup.html
+  - [x] 1.2.6 popup.js
 
 ### 2️⃣ Manifest Setup
-- [ ] Skapa manifest.json med:
-  - [ ] Grundläggande metadata (namn, version, beskrivning)
-  - [ ] Nödvändiga permissions
-  - [ ] Content script konfiguration
-  - [ ] Icon setup
+- [x] 2.1 Skapa manifest.json med:
+  - [x] 2.1.1 Grundläggande metadata (namn, version, beskrivning)
+  - [x] 2.1.2 Nödvändiga permissions
+  - [x] 2.1.3 Content script konfiguration
+  - [x] 2.1.4 Icon setup
 
 ### 3️⃣ Content Script Implementation
-- [ ] Implementera huvudlogik i content.js:
-  - [ ] Hitta rätt HTML-selektor för Avanza
-  - [ ] Implementera värdeövervakning
-  - [ ] Lägg till ljuduppspelning
-  - [ ] Sätt upp intervalluppdatering
+- [ ] 3.1 Implementera huvudlogik i content.js:
+  - [ ] 3.1.1 Hitta rätt HTML-selektor för Avanza
+  - [ ] 3.1.2 Implementera värdeövervakning
+  - [ ] 3.1.3 Lägg till ljuduppspelning
+  - [ ] 3.1.4 Sätt upp intervalluppdatering
 
 ### 4️⃣ Popup Interface
-- [ ] Skapa popup.html med:
-  - [ ] Dropdown för nivåval
-  - [ ] Spara-knapp
-- [ ] Implementera popup.js:
-  - [ ] Hantera nivåval
-  - [ ] Spara inställningar
-  - [ ] Ladda sparade inställningar
+- [ ] 4.1 Skapa popup.html med:
+  - [ ] 4.1.1 Dropdown för nivåval
+  - [ ] 4.1.2 Dropdown för ljudeffektval
+  - [ ] 4.1.3 Spara-knapp
+- [ ] 4.2 Implementera popup.js:
+  - [ ] 4.2.1 Hantera nivåval
+  - [ ] 4.2.2 Hantera ljudeffektval
+  - [ ] 4.2.3 Spara inställningar
+  - [ ] 4.2.4 Ladda sparade inställningar
 
 ### 5️⃣ Assets
-- [ ] Lägg till ljudfil (sound.mp3)
-- [ ] Skapa/lägg till icon.png
-  - [ ] 16x16px version
-  - [ ] 48x48px version
-  - [ ] 128x128px version
+- [x] 5.1 Lägg till ljudfiler:
+  - [x] 5.1.1 luigis_mansion_2001.mp3 (Luigi's Mansion coin sound)
+  - [x] 5.1.2 mario_bros_famicom_1983.mp3 (Classic Mario coin sound)
+  - [x] 5.1.3 mario_bros_famicom_1985.mp3 (Super Mario Bros coin sound)
+- [x] 5.2 Skapa/lägg till icon.png
+  - [x] 5.2.1 16x16px version
+  - [x] 5.2.2 48x48px version
+  - [x] 5.2.3 128x128px version
 
 ### 6️⃣ Testing
-- [ ] Testa installation
-- [ ] Verifiera att värdeavläsning fungerar
-- [ ] Testa ljudnotifieringar
-- [ ] Verifiera att nivåändring fungerar
-- [ ] Testa uppdateringsintervall
+- [ ] 6.1 Testa installation
+- [ ] 6.2 Verifiera att värdeavläsning fungerar
+- [ ] 6.3 Testa ljudnotifieringar
+- [ ] 6.4 Verifiera att nivåändring fungerar
+- [ ] 6.5 Testa uppdateringsintervall
 
 ### 7️⃣ Distribution
-- [ ] Paketera tillägget som ZIP
-- [ ] Dokumentera installationsinstruktioner
-- [ ] Testa installation från ZIP
+- [ ] 7.1 Paketera tillägget som ZIP
+- [ ] 7.2 Dokumentera installationsinstruktioner
+- [ ] 7.3 Testa installation från ZIP
 
 ## 🔧 Tekniska Detaljer
 
