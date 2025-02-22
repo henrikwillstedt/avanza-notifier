@@ -14,8 +14,6 @@ if (!isAvanzaPage) {
     // Globala variabler för att hålla koll på state
     let notificationLevel = 1000; // Default värde, uppdateras från storage
     let selectedSound = 'mario_bros_famicom_1985.mp3'; // Default värde, uppdateras från storage
-    let lastNotificationTime = 0; // För att hantera cooldown
-    const COOLDOWN_PERIOD = 5000; // 5 sekunder mellan notifieringar
     const UPDATE_INTERVAL = 120000; // Uppdatera var 120:e sekund
 
     // Funktion för att parsa värdet från Avanza
@@ -51,15 +49,8 @@ if (!isAvanzaPage) {
 
     // Funktion för att spela upp ljud
     function playNotificationSound() {
-        const now = Date.now();
-        if (now - lastNotificationTime < COOLDOWN_PERIOD) {
-            console.log('Cooldown period active, skipping notification');
-            return;
-        }
-        
         const audio = new Audio(chrome.runtime.getURL(selectedSound));
         audio.play();
-        lastNotificationTime = now;
     }
 
     // Huvudfunktion som kollar värdet
@@ -127,33 +118,6 @@ if (!isAvanzaPage) {
 
     // Uppdatera sidan med samma intervall som checkValue
     setInterval(refreshPage, UPDATE_INTERVAL); // 120000 ms = 2 minuter
-
-    // Testfunktion för utveckling
-    window.testValue = function(value) {
-        const element = document.querySelector('[data-e2e="development-card-amount"]');
-        if (!element) {
-            console.error('Kunde inte hitta elementet');
-            return;
-        }
-        
-        // Uppdatera elementets text
-        const span = document.createElement('span');
-        span.setAttribute('data-e2e', 'development-card-amount');
-        span.textContent = `${value} kr`;
-        element.replaceWith(span);
-        
-        // Trigga en check
-        checkValue();
-        
-        console.log(`Värde satt till: ${value} kr`);
-    }
-
-    // Meddela att scriptet är laddat
-    console.log('Avanza Notifier: Content script laddat och redo för test!');
-
-    // Exempel på användning i konsolen:
-    // testValue(950)  // Sätt värde under gränsen
-    // testValue(1100) // Sätt värde över gränsen för att trigga ljud
 
     // Funktion för att uppdatera sidan
     function refreshPage() {
