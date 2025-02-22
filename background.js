@@ -22,6 +22,27 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     }
 });
 
+// Skapa en alarm när extension startar
+chrome.runtime.onInstalled.addListener(() => {
+    // Skapa en alarm som körs var 2:a minut
+    chrome.alarms.create('checkAvanza', {
+        periodInMinutes: 2
+    });
+});
+
+// Lyssna på alarm events
+chrome.alarms.onAlarm.addListener((alarm) => {
+    if (alarm.name === 'checkAvanza') {
+        // Hitta Avanza-fliken
+        chrome.tabs.query({ url: 'https://www.avanza.se/*' }, (tabs) => {
+            if (tabs.length > 0) {
+                // Uppdatera den första Avanza-fliken vi hittar
+                chrome.tabs.reload(tabs[0].id);
+            }
+        });
+    }
+});
+
 // Lyssna på meddelanden från content script
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === 'refreshPage' && sender.tab) {

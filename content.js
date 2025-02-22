@@ -243,9 +243,32 @@ if (!isAvanzaPage) {
 
     // Starta övervakningen
     console.log('Starting Avanza Notifier...');
-    setInterval(checkValue, UPDATE_INTERVAL);
+    let checkInterval = setInterval(checkValue, UPDATE_INTERVAL);
     checkValue(); // Kör en första koll direkt
 
+    // Hantera när fliken blir synlig/osynlig
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            console.log('Fliken aktiv igen, uppdaterar värden...');
+            checkValue(); // Kolla värdet direkt när fliken blir aktiv
+            
+            // Starta om intervallet om det behövs
+            if (!checkInterval) {
+                checkInterval = setInterval(checkValue, UPDATE_INTERVAL);
+            }
+        }
+    });
+
     // Uppdatera sidan med samma intervall som checkValue
-    setInterval(refreshPage, UPDATE_INTERVAL); // 120000 ms = 2 minuter
+    let refreshInterval = setInterval(refreshPage, UPDATE_INTERVAL);
+
+    // Hantera uppdatering av sidan när fliken blir synlig/osynlig
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            // Starta om refresh-intervallet om det behövs
+            if (!refreshInterval) {
+                refreshInterval = setInterval(refreshPage, UPDATE_INTERVAL);
+            }
+        }
+    });
 }
