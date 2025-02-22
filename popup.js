@@ -3,15 +3,23 @@ const notificationLevel = document.getElementById('notificationLevel');
 const soundEffect = document.getElementById('soundEffect');
 const saveButton = document.getElementById('saveButton');
 const status = document.getElementById('status');
+const dailyHighValue = document.getElementById('dailyHighValue');
+const currentValue = document.getElementById('currentValue');
 
 // Ladda sparade inställningar när popup öppnas
 document.addEventListener('DOMContentLoaded', () => {
-    chrome.storage.local.get(['notificationLevel', 'soundEffect'], (result) => {
+    chrome.storage.local.get(['notificationLevel', 'soundEffect', 'dailyHigh', 'currentValue'], (result) => {
         if (result.notificationLevel) {
             notificationLevel.value = result.notificationLevel;
         }
         if (result.soundEffect) {
             soundEffect.value = result.soundEffect;
+        }
+        if (result.dailyHigh) {
+            dailyHighValue.textContent = result.dailyHigh;
+        }
+        if (result.currentValue !== undefined) {
+            currentValue.textContent = result.currentValue;
         }
     });
 });
