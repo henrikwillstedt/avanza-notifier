@@ -59,11 +59,11 @@ Ett Chrome-tillägg som låter dig höra när du tjänar pengar på Avanza, utan
   - [x] 5.2.3 128x128px version
 
 ### 6️⃣ Testing
-- [ ] 6.1 Testa installation
-- [ ] 6.2 Verifiera att värdeavläsning fungerar
-- [ ] 6.3 Testa ljudnotifieringar
-- [ ] 6.4 Verifiera att nivåändring fungerar
-- [ ] 6.5 Testa uppdateringsintervall
+- [x] 6.1 Testa installation
+- [x] 6.2 Verifiera att värdeavläsning fungerar
+- [x] 6.3 Testa ljudnotifieringar
+- [x] 6.4 Verifiera att nivåändring fungerar
+- [x] 6.5 Testa uppdateringsintervall
 
 ### 7️⃣ Distribution
 - [ ] 7.1 Paketera tillägget som ZIP
@@ -108,3 +108,7 @@ Ett Chrome-tillägg som låter dig höra när du tjänar pengar på Avanza, utan
 2. Aktivera Developer Mode
 3. Klicka på "Ladda upp okomprimerat tillägg"
 4. Välj projektmappen
+
+## 🔮 Framtida TODO
+- [ ] Lägg till stöd för Nordnet
+- [ ] Om man är på annan sajt, länk till Avanza

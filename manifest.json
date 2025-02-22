@@ -3,8 +3,15 @@
   "name": "Avanza Notifier",
   "version": "1.0",
   "description": "Spelar upp ett ljud när din intjäning ökar med valbart belopp.",
-  "permissions": ["activeTab", "storage"],
-  "host_permissions": ["https://www.avanza.se/*"],
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://www.avanza.se/*"
+  ],
   "content_scripts": [
     {
       "matches": ["https://www.avanza.se/*"],
@@ -12,20 +19,23 @@
       "run_at": "document_idle"
     }
   ],
+  "web_accessible_resources": [{
+    "resources": [
+      "luigis_mansion_2001.mp3",
+      "mario_bros_famicom_1983.mp3",
+      "mario_bros_famicom_1985.mp3",
+      "icon.png"
+    ],
+    "matches": ["https://www.avanza.se/*"]
+  }],
+  "background": {
+    "service_worker": "background.js"
+  },
   "action": {
-    "default_popup": "popup.html",
     "default_icon": {
       "16": "icon.png",
       "48": "icon.png",
       "128": "icon.png"
     }
-  },
-  "web_accessible_resources": [{
-    "resources": [
-      "luigis_mansion_2001.mp3",
-      "mario_bros_famicom_1983.mp3",
-      "mario_bros_famicom_1985.mp3"
-    ],
-    "matches": ["https://www.avanza.se/*"]
-  }]
+  }
 }
