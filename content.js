@@ -96,15 +96,7 @@ if (!isAvanzaPage) {
             // Uppdatera dagshögsta separat
             chrome.storage.local.get(['dailyHigh'], (result) => {
                 const dailyHigh = result.dailyHigh || 0;
-                console.log('Current daily high:', dailyHigh);
-                
-                // Uppdatera dagshögsta om:
-                // 1. Det är första värdet för dagen (dailyHigh === 0)
-                // 2. Det nya värdet är högre än det tidigare högsta
-                // 3. Både det nya värdet och dagshögsta är negativa, och det nya värdet är mindre negativt
-                if (dailyHigh === 0 || 
-                    currentValue > dailyHigh || 
-                    (currentValue < 0 && dailyHigh < 0 && currentValue > dailyHigh)) {
+                if (currentValue > dailyHigh) {
                     console.log('New daily high:', currentValue);
                     chrome.storage.local.set({ dailyHigh: currentValue });
                 }
@@ -135,32 +127,31 @@ if (!isAvanzaPage) {
             console.log('Current value:', currentValue);
 
             // Hämta tidigare state
-            chrome.storage.local.get(['lastCheckedValue', 'lastCheckTime'], (result) => {
+            chrome.storage.local.get(['lastCheckTime', 'lastCheckedValue', 'lastNotifiedLevel'], (result) => {
                 const now = Date.now();
-                let lastValue = result.lastCheckedValue || 0;
-                console.log('Last checked value:', lastValue);
+                const lastValue = result.lastCheckedValue || 0;
+                const lastNotifiedLevel = result.lastNotifiedLevel || 0;
                 
                 // Kontrollera om det är en ny dag
                 if (isNewDay(result.lastCheckTime)) {
                     console.log('New day detected, resetting values');
-                    lastValue = 0;
-                    chrome.storage.local.set({ dailyHigh: 0 });
+                    chrome.storage.local.set({ 
+                        dailyHigh: 0,
+                        lastNotifiedLevel: 0 
+                    });
                 }
 
-                // Avrunda till närmaste notifieringsnivå för ljudnotifieringar
-                const currentLevel = Math.floor(Math.abs(currentValue) / notificationLevel) * notificationLevel * Math.sign(currentValue);
-                const lastLevel = Math.floor(Math.abs(lastValue) / notificationLevel) * notificationLevel * Math.sign(lastValue);
-                
-                console.log('Current level:', currentLevel);
-                console.log('Last level:', lastLevel);
-                
-                // Spela ljud om vi nått en ny nivå
-                if (Math.abs(currentLevel) > Math.abs(lastLevel)) {
-                    console.log('Playing sound for new level:', currentLevel);
+                // Beräkna hur många hela notifieringsnivåer vi har uppnått
+                const currentLevel = Math.floor(currentValue / notificationLevel);
+                const previousLevel = Math.floor(lastValue / notificationLevel);
+
+                // Om vi har nått en ny nivå (eller flera), spela ljud
+                if (currentLevel > previousLevel && currentLevel > 0) {
+                    console.log(`Ding! Nått ny nivå: ${currentLevel * notificationLevel} kr`);
                     playNotificationSound();
                 }
 
-                // Spara det exakta värdet
+                // Spara det exakta värdet och den senaste nivån vi har notifierat om
                 saveState(currentValue, now);
             });
         } catch (error) {
@@ -201,20 +192,17 @@ if (!isAvanzaPage) {
             console.log('Simulerar värde:', value);
             const now = Date.now();
             
-            // Spara och kontrollera värdet
-            chrome.storage.local.get(['lastCheckedValue', 'lastCheckTime'], (result) => {
-                let lastValue = result.lastCheckedValue || 0;
+            // Hämta tidigare värde för nivåjämförelse
+            chrome.storage.local.get(['lastCheckedValue'], (result) => {
+                const lastValue = result.lastCheckedValue || 0;
                 
-                // Avrunda till närmaste notifieringsnivå för ljudnotifieringar
-                const currentLevel = Math.floor(Math.abs(value) / notificationLevel) * notificationLevel * Math.sign(value);
-                const lastLevel = Math.floor(Math.abs(lastValue) / notificationLevel) * notificationLevel * Math.sign(lastValue);
-                
-                console.log('Current level:', currentLevel);
-                console.log('Last level:', lastLevel);
-                
-                // Spela ljud om vi nått en ny nivå
-                if (Math.abs(currentLevel) > Math.abs(lastLevel)) {
-                    console.log('Playing sound for new level:', currentLevel);
+                // Beräkna hur många hela notifieringsnivåer vi har uppnått
+                const currentLevel = Math.floor(value / notificationLevel);
+                const previousLevel = Math.floor(lastValue / notificationLevel);
+
+                // Om vi har nått en ny nivå (eller flera), spela ljud
+                if (currentLevel > previousLevel && currentLevel > 0) {
+                    console.log(`Ding! Nått ny nivå: ${currentLevel * notificationLevel} kr`);
                     playNotificationSound();
                 }
 
