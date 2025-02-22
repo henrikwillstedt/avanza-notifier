@@ -38,15 +38,15 @@ Ett Chrome-tillägg som låter dig höra när du tjänar pengar på Avanza, utan
   - [ ] 3.1.4 Sätt upp intervalluppdatering
 
 ### 4️⃣ Popup Interface
-- [ ] 4.1 Skapa popup.html med:
-  - [ ] 4.1.1 Dropdown för nivåval
-  - [ ] 4.1.2 Dropdown för ljudeffektval
-  - [ ] 4.1.3 Spara-knapp
-- [ ] 4.2 Implementera popup.js:
-  - [ ] 4.2.1 Hantera nivåval
-  - [ ] 4.2.2 Hantera ljudeffektval
-  - [ ] 4.2.3 Spara inställningar
-  - [ ] 4.2.4 Ladda sparade inställningar
+- [x] 4.1 Skapa popup.html med:
+  - [x] 4.1.1 Dropdown för nivåval
+  - [x] 4.1.2 Dropdown för ljudeffektval
+  - [x] 4.1.3 Spara-knapp
+- [x] 4.2 Implementera popup.js:
+  - [x] 4.2.1 Hantera nivåval
+  - [x] 4.2.2 Hantera ljudeffektval
+  - [x] 4.2.3 Spara inställningar
+  - [x] 4.2.4 Ladda sparade inställningar
 
 ### 5️⃣ Assets
 - [x] 5.1 Lägg till ljudfiler:
