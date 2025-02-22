@@ -12,9 +12,11 @@ if (!isAvanzaPage) {
 } else {
     // Resten av koden för Avanza-sidan
     // Globala variabler för att hålla koll på state
-    let lastCheckedValue = 0;
     let notificationLevel = 1000; // Default värde, uppdateras från storage
     let selectedSound = 'mario_bros_famicom_1985.mp3'; // Default värde, uppdateras från storage
+    let lastNotificationTime = 0; // För att hantera cooldown
+    const COOLDOWN_PERIOD = 5000; // 5 sekunder mellan notifieringar
+    const UPDATE_INTERVAL = 120000; // Uppdatera var 120:e sekund
 
     // Funktion för att parsa värdet från Avanza
     function parseAvanzaValue(element) {
@@ -29,10 +31,35 @@ if (!isAvanzaPage) {
         return parseInt(valueText, 10);
     }
 
+    // Funktion för att kontrollera om det är en ny dag
+    function isNewDay(lastCheckTime) {
+        if (!lastCheckTime) return true;
+        const lastCheck = new Date(lastCheckTime);
+        const now = new Date();
+        return lastCheck.getDate() !== now.getDate() ||
+               lastCheck.getMonth() !== now.getMonth() ||
+               lastCheck.getFullYear() !== now.getFullYear();
+    }
+
+    // Funktion för att spara state
+    function saveState(value, timestamp) {
+        chrome.storage.local.set({
+            lastCheckedValue: value,
+            lastCheckTime: timestamp
+        });
+    }
+
     // Funktion för att spela upp ljud
     function playNotificationSound() {
+        const now = Date.now();
+        if (now - lastNotificationTime < COOLDOWN_PERIOD) {
+            console.log('Cooldown period active, skipping notification');
+            return;
+        }
+        
         const audio = new Audio(chrome.runtime.getURL(selectedSound));
         audio.play();
+        lastNotificationTime = now;
     }
 
     // Huvudfunktion som kollar värdet
@@ -43,28 +70,41 @@ if (!isAvanzaPage) {
         const currentValue = parseAvanzaValue(element);
         if (isNaN(currentValue)) return;
 
-        // Vi är bara intresserade av positiva värden
-        if (currentValue <= 0) {
-            lastCheckedValue = 0;
-            return;
-        }
+        // Hämta tidigare state
+        chrome.storage.local.get(['lastCheckedValue', 'lastCheckTime'], (result) => {
+            const now = Date.now();
+            let lastValue = result.lastCheckedValue || 0;
+            
+            // Kontrollera om det är en ny dag
+            if (isNewDay(result.lastCheckTime)) {
+                console.log('Ny dag, nollställer värden');
+                lastValue = 0;
+            }
 
-        // Avrunda till närmaste notifieringsnivå
-        const currentLevel = Math.floor(currentValue / notificationLevel) * notificationLevel;
-        
-        // Om vi nått en ny nivå, spela ljud
-        if (currentLevel > lastCheckedValue) {
-            console.log(`Ding! Ny nivå nådd: ${currentLevel} kr`);
-            lastCheckedValue = currentLevel;
-            playNotificationSound();
-        }
+            // Vi är bara intresserade av positiva värden
+            if (currentValue <= 0) {
+                saveState(0, now);
+                return;
+            }
+
+            // Avrunda till närmaste notifieringsnivå
+            const currentLevel = Math.floor(currentValue / notificationLevel) * notificationLevel;
+            
+            // Om vi nått en ny nivå, spela ljud
+            if (currentLevel > lastValue) {
+                console.log(`Ding! Ny nivå nådd: ${currentLevel} kr`);
+                playNotificationSound();
+            }
+
+            // Spara det nya värdet
+            saveState(currentLevel, now);
+        });
     }
 
     // Lyssna efter ändringar i storage (när användaren ändrar inställningar)
     chrome.storage.onChanged.addListener((changes) => {
         if (changes.notificationLevel) {
             notificationLevel = changes.notificationLevel.newValue;
-            lastCheckedValue = 0; // Återställ för att hantera nya nivåer korrekt
         }
         if (changes.soundEffect) {
             selectedSound = changes.soundEffect.newValue;
@@ -81,12 +121,12 @@ if (!isAvanzaPage) {
         }
     });
 
-    // Starta övervakningen
-    setInterval(checkValue, 1000); // Kolla varje sekund
+    // Starta övervakningen med längre intervall
+    setInterval(checkValue, UPDATE_INTERVAL); // Kolla var 120:e sekund
     checkValue(); // Kör en första koll direkt
 
-    // Uppdatera sidan varje minut för att få färska värden
-    setInterval(refreshPage, 60000); // 60000 ms = 1 minut
+    // Uppdatera sidan med samma intervall som checkValue
+    setInterval(refreshPage, UPDATE_INTERVAL); // 120000 ms = 2 minuter
 
     // Testfunktion för utveckling
     window.testValue = function(value) {
