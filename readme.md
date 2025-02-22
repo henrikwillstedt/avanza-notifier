@@ -31,11 +31,11 @@ Ett Chrome-tillägg som låter dig höra när du tjänar pengar på Avanza, utan
   - [x] 2.1.4 Icon setup
 
 ### 3️⃣ Content Script Implementation
-- [ ] 3.1 Implementera huvudlogik i content.js:
-  - [ ] 3.1.1 Hitta rätt HTML-selektor för Avanza
-  - [ ] 3.1.2 Implementera värdeövervakning
-  - [ ] 3.1.3 Lägg till ljuduppspelning
-  - [ ] 3.1.4 Sätt upp intervalluppdatering
+- [x] 3.1 Implementera huvudlogik i content.js:
+  - [x] 3.1.1 Hitta rätt HTML-selektor för Avanza
+  - [x] 3.1.2 Implementera värdeövervakning
+  - [x] 3.1.3 Lägg till ljuduppspelning
+  - [x] 3.1.4 Sätt upp intervalluppdatering
 
 ### 4️⃣ Popup Interface
 - [x] 4.1 Skapa popup.html med:
