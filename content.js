@@ -1,16 +1,5 @@
-// Kontrollera om vi är på Avanza
-const isAvanzaPage = window.location.hostname === 'www.avanza.se';
-
-if (!isAvanzaPage) {
-    // Om vi inte är på Avanza, visa redirect-sidan
-    fetch(chrome.runtime.getURL('redirect.html'))
-        .then(response => response.text())
-        .then(html => {
-            document.body.innerHTML = html;
-            document.title = 'Avanza Notifier';
-        });
-} else {
-    // Resten av koden för Avanza-sidan
+// Kolla om vi är på rätt sida för att köra övervakningen
+if (window.location.href === 'https://www.avanza.se/hem/hem.html') {
     // Globala variabler för att hålla koll på state
     let notificationLevel = 1000; // Default värde, uppdateras från storage
     let selectedSound = 'mario_bros_famicom_1985.mp3'; // Default värde, uppdateras från storage

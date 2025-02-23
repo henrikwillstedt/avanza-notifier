@@ -4,11 +4,10 @@
   "version": "1.0",
   "description": "Spelar upp ett ljud när din intjäning ökar med valbart belopp.",
   "permissions": [
-    "activeTab",
     "storage",
-    "scripting",
+    "alarms",
     "tabs",
-    "alarms"
+    "scripting"
   ],
   "host_permissions": [
     "https://www.avanza.se/*"
@@ -25,8 +24,7 @@
       "luigis_mansion_2001.mp3",
       "mario_bros_famicom_1983.mp3",
       "mario_bros_famicom_1985.mp3",
-      "icon.png",
-      "redirect.html"
+      "icon.png"
     ],
     "matches": ["https://www.avanza.se/*"]
   }],
