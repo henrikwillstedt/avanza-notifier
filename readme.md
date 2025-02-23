@@ -1,5 +1,56 @@
 📢 Avanza Notifier - Chrome Extension
 
+# 🚀 Installation
+Denna guide hjälper dig att installera Avanza Notifier i Chrome, steg för steg. Inga kodkunskaper krävs!
+
+## 📥 Steg 1: Ladda ner filerna
+1. Klicka på den gröna "Code" knappen högst upp på denna sida
+2. Välj "Download ZIP" från menyn
+3. När filen har laddats ner, högerklicka på den och välj "Extrahera" eller "Packa upp"
+4. Kom ihåg var du sparade den uppackade mappen
+
+## 🔧 Steg 2: Installera i Chrome
+1. Öppna Chrome webbläsaren
+2. Skriv in `chrome://extensions` i adressfältet och tryck Enter
+3. Hitta reglaget för "Programmerarläge" eller "Developer mode" (uppe till höger) och aktivera det
+4. Klicka på knappen "Läs in okomprimerat tillägg" eller "Load unpacked"
+5. Leta upp och välj mappen du packade upp i Steg 1
+6. Nu ska du se "Avanza Notifier" bland dina tillägg!
+
+## ✅ Steg 3: Verifiera installationen
+1. Titta efter en ny ikon i Chrome's tilläggsfält (uppe till höger)
+2. Klicka på ikonen för att se inställningarna
+3. Följ länken till Avanza
+4. Klicka på ikonen för att se inställningarna
+5. Välj önskad notifieringsnivå och ljudeffekt
+6. Klicka på "Spara inställningar"
+
+
+## ❓ Vanliga frågor
+
+### Varför ser jag inte tillägget?
+- Kontrollera att du har aktiverat "Programmerarläge"
+- Prova att ladda om Chrome
+- Säkerställ att du valde rätt mapp vid installationen
+
+### Hur uppdaterar jag tillägget?
+1. Ladda ner den nya versionen
+2. Gå till `chrome://extensions`
+3. Ta bort den gamla versionen
+4. Följ installationsstegen ovan igen
+
+### Hur tar jag bort tillägget?
+1. Gå till `chrome://extensions`
+2. Hitta "Avanza Notifier"
+3. Klicka på "Ta bort" eller papperskorgen
+
+### Behöver du hjälp?
+Kontakta [@Appmakarn](https://x.com/Appmakarn) på X (Twitter).
+
+---
+
+
+
 ## 📌 Övergripande beskrivning
 Ett Chrome-tillägg som låter dig höra när du tjänar pengar på Avanza, utan att behöva hålla koll på skärmen.
 
